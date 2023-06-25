@@ -1,1 +1,60 @@
-<p>resistances works!</p>
+<div class="container mt-4">
+  <h1 class="display-4 fw-bold my-4">Calculadora de resistencias</h1>
+  <h4>Banda 1:</h4>
+  <div class="form-floating mb-3">
+    <select class="form-select" name="c1" [(ngModel)]="band1">
+      <option *ngFor="let op of colors" name="c1" [value]="op" style="margin: 10px" [style.background-color]="op">
+        {{op}}</option>
+    </select>
+    <label>Selecciona una opción</label>
+  </div>
+
+  <h4>Banda 2:</h4>
+  <div class="form-floating mb-3">
+    <select class="form-select" name="c1" [(ngModel)]="band2">
+      <option *ngFor="let op of colors" name="c1" [value]="op" style="margin: 10px" [style.background-color]="op">
+        {{op}}</option>
+    </select>
+    <label>Selecciona una opción</label>
+  </div>
+
+  <h4>Banda 3:</h4>
+  <div class="form-floating mb-3">
+    <select class="form-select" name="c2" [(ngModel)]="band3">
+      <option *ngFor="let op of colors" name="c2" [value]="op" style="margin: 10px" [style.background-color]="op">
+        {{op}}</option>
+    </select>
+    <label>Selecciona una opción</label>
+  </div>
+  <br>
+  <div class="form-check" *ngFor="let item of radioOptions">
+    <input class="form-check-input" type="radio" name="radio" [(ngModel)]="radioSelected" [value]="item">
+    <label class="form-check-label">{{item}}</label>
+  </div>
+  <button type="button" class="btn btn-primary rounded-pill my-4" (click)="calculateResult()">Calcular</button>
+</div>
+
+<table class="table table-bordered mt-4">
+  <thead>
+    <tr>
+      <th>Banda Uno</th>
+      <th>Banda Dos</th>
+      <th>Banda Tres</th>
+      <th>Tolerancia</th>
+      <th>Maximo</th>
+      <th>Minimo</th>
+      <th>Resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td [ngStyle]="{'background-color': band1}">{{v1}}</td>
+      <td [ngStyle]="{'background-color': band2}">{{v2}}</td>
+      <td [ngStyle]="{'background-color': band3}">{{v3}}</td>
+      <td [ngStyle]="{'background-color': radioSelected === 'plata' ? 'gray' : '#ffbf00'}">{{radioSelected}}</td>
+      <td>{{positiveVal}}</td>
+      <td>{{negativeVal}}</td>
+      <td>{{result}}</td>
+    </tr>
+  </tbody>
+</table>
