@@ -1,3 +1,4 @@
+import { CineModule } from './cinepolis/cine/cine.module';
 import { ResistanceModule } from './resistances/resistance/resistance.module';
 import { DistanceModuleModule } from './points-distance/distance-module/distance-module.module';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [
+  declarations:
+  [
     AppComponent,
   ],
   imports: [
@@ -16,9 +18,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     BrowserAnimationsModule,
     DistanceModuleModule,
-    ResistanceModule
+    ResistanceModule,
+    CineModule
   ],
-  providers: [],
+  providers:
+  [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
