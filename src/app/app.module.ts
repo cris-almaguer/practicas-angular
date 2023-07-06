@@ -1,3 +1,4 @@
+import { PizzaModule } from './pizzeria/pizza/pizza.module';
 import { CineModule } from './cinepolis/cine/cine.module';
 import { ResistanceModule } from './resistances/resistance/resistance.module';
 import { DistanceModuleModule } from './points-distance/distance-module/distance-module.module';
@@ -12,15 +13,17 @@ import { MenuComponent } from './menu/menu.component';
   declarations:
   [
     AppComponent,
-    MenuComponent,
+    MenuComponent
   ],
-  imports: [
+  imports:
+  [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     DistanceModuleModule,
     ResistanceModule,
-    CineModule
+    CineModule,
+    PizzaModule
   ],
   providers:
   [],

@@ -1,0 +1,127 @@
+<h1 class="my-3 fw-bold">Orden</h1>
+<div class="row">
+  <div class="col-12">
+    <form (ngSubmit)="addDetail()" [formGroup]="pizzaForm">
+      <div class="row">
+        <div class="mb-4 col-4">
+          <label for="name" class="form-label fw-bold">Nombre:</label>
+          <input type="text" id="name" class="form-control" required formControlName="name" name="name">
+          <div *ngIf="pizzaForm.get('name')?.touched && pizzaForm.get('name')?.errors?.['required']"
+            class="alert alert-danger pt-2">Este Campo es requerido
+          </div>
+        </div>
+        <div class="mb-4 col-4">
+          <label for="address" class="form-label fw-bold">Dirección:</label>
+          <input type="text" id="address" class="form-control" required formControlName="address" name="address">
+          <div *ngIf="pizzaForm.get('address')?.touched && pizzaForm.get('address')?.errors?.['required']"
+            class="alert alert-danger pt-2">Este Campo es requerido</div>
+        </div>
+        <div class="mb-4 col-4">
+          <label for="phoneNumber" class="form-label fw-bold">Teléfono:</label>
+          <input type="text" id="phoneNumber" class="form-control" required formControlName="phoneNumber"
+            name="phoneNumber">
+          <div *ngIf="pizzaForm.get('phoneNumber')?.touched && pizzaForm.get('phoneNumber')?.errors?.['required']"
+            class="alert alert-danger pt-2">Este Campo es requerido</div>
+        </div>
+        <div class="mb-4 col-4">
+          <label class="form-label fw-bold">Tamaño:</label>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" formControlName="size" value="Chica"> Chica $40.00 MXN
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" formControlName="size" value="Mediana"> Mediana $80.00 MXN
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" formControlName="size" value="Grande"> Grande $120.00 MXN
+            </label>
+          </div>
+        </div>
+        <div class="mb-4 col-4">
+          <label for="ingredients" class="form-label fw-bold">Ingredientes ($10.00 MXN PCU):</label>
+          <div formArrayName="ingredients">
+            <div *ngFor="let item of ingredients; let i = index">
+              <label class="form-check-label">
+                <input type="checkbox" [formControlName]="i" [value]="item">&nbsp;{{item}}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="mb-4 col-4">
+          <label for="quantity" class="form-label fw-bold">Cantidad:</label>
+          <input type="text" id="quantity" class="form-control" required formControlName="quantity" name="quantity">
+          <div *ngIf="pizzaForm.get('quantity')?.touched && pizzaForm.get('quantity')?.errors?.['required']"
+            class="alert alert-danger pt-2">Este Campo es requerido</div>
+        </div>
+        <div class="mb-4 col-4">
+          <p class="form-label fw-bold">Fecha: </p>
+          {{ currentDate | date}}
+        </div>
+      </div>
+      <div class="gap-2 col-auto float-start">
+        <button class="btn btn-outline-primary rounded-4" type="submit">+&nbsp;Agregar</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 mt-4">
+    <h1 class="my-3 fw-bold">Detalle del pedido</h1>
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th class="align-middle">Ingredientes</th>
+          <th class="align-middle">Tamaño</th>
+          <th class="align-middle">Numero de Pizzas</th>
+          <th class="align-middle">Subtotal</th>
+          <th class="align-middle">Acción</th>
+        </tr>
+      </thead>
+      <tbody class="mx-2">
+        <tr *ngIf="orderDetail.length < 1; else orderDetailBody">
+          <td colspan="5" class="align-middle text-center">No hay información</td>
+        </tr>
+        <ng-template #orderDetailBody>
+          <tr *ngFor="let order of orderDetail; let i = index">
+            <td class="align-middle">{{order.ingredients}}</td>
+            <td class="align-middle">{{order.size}}</td>
+            <td class="align-middle">{{order.quantity}}</td>
+            <td class="align-middle">{{order.subTotal | currency}}</td>
+            <td class="align-middle"><button class="btn btn-danger rounded-circle p-2 lh-1"
+                (click)="deleteDetail(i)">〤</button></td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+    <div class="gap-2 col-auto float-start">
+      <button class="btn btn-primary rounded-4" type="button" (click)="calculateTotal()">✔&nbsp;Finalizar</button>
+    </div>
+  </div>
+  <div class="col-12 mt-4" *ngIf="showTable">
+    <h1 class="my-3 fw-bold">Ventas del dia</h1>
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th class="align-middle">Nombre</th>
+          <th class="align-middle">Dirección</th>
+          <th class="align-middle">Teléfono</th>
+          <th class="align-middle">Fecha</th>
+          <th class="align-middle">Total</th>
+        </tr>
+      </thead>
+      <tbody class="mx-2">
+        <tr *ngFor="let order of orderArray">
+          <td class="align-middle">{{ order.client.name }}</td>
+          <td class="align-middle">{{ order.client.address }}</td>
+          <td class="align-middle">{{ order.client.phoneNumber }}</td>
+          <td class="align-middle">{{ order.date }}</td>
+          <td class="align-middle">{{ order.total | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="fw-bold">Total de las ventas en el dia:</h3>
+    <p class="text-primary display-4">{{totalSum | currency}}&nbsp;MXN</p>
+  </div>
+</div>

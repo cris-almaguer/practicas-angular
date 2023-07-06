@@ -1,3 +1,4 @@
+import { PizzeriaComponent } from './pizzeria/pizzeria.component';
 import { ResistancesComponent } from './resistances/resistances.component';
 import { PointsDistanceComponent } from './points-distance/points-distance.component';
 import { CinepolisComponent } from './cinepolis/cinepolis.component';
@@ -23,10 +24,13 @@ const routes:Routes =
     path: 'ResistancesComponent',
     component: ResistancesComponent
   },
+  {
+    path: 'PizzeriaComponent',
+    component: PizzeriaComponent
+  }
 ];
 
-@NgModule
-({
+@NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
